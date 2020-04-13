@@ -30,6 +30,13 @@ class SaveCoinsSpider(Spider):
         next_page = unquote(links['next'])
 
         for game in games:
+            del game['imageUrl']
+            del game['releaseDateDisplay']
+            del game['releaseDateOrder']
+            del game['price_info']
+            del game['price_digital']
+            del game['price_physical']
+
             yield Request(
                 f'{self.domain}/{game["slug"]}/{self.prices_params}',
                 callback=self.parce_price,
@@ -41,4 +48,5 @@ class SaveCoinsSpider(Spider):
 
     def parce_price(self, response, **kwargs):
         all_prices = json.loads(response.text)
-        pass
+        game = {**kwargs}
+        game['price'] = all_prices['digital']
