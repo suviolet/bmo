@@ -25,5 +25,11 @@ class SaveCoinsSpider(Spider):
 
         games = res['data']
 
+        links = res['links']
+        next_page = unquote(links['next'])
+
         for game in games:
             pass
+
+        if next_page:
+            yield Request(next_page, callback=self.parse_page)
