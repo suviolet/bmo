@@ -21,4 +21,9 @@ class SaveCoinsSpider(Spider):
         )
 
     def parse_page(self, response):
-        pass
+        res = json.loads(response.text)
+
+        games = res['data']
+
+        for game in games:
+            pass
