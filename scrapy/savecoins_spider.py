@@ -13,6 +13,7 @@ class SaveCoinsSpider(Spider):
         '?filter[platform]=nintendo&currency=BRL'
         '&locale=pt&page[size]=20&page[number]=1'
     )
+    prices_params = 'prices?currency=BRL&locale=pt'
 
     def start_requests(self):
         yield Request(
@@ -29,7 +30,15 @@ class SaveCoinsSpider(Spider):
         next_page = unquote(links['next'])
 
         for game in games:
-            pass
+            yield Request(
+                f'{self.domain}/{game["slug"]}/{self.prices_params}',
+                callback=self.parce_price,
+                cb_kwargs=game
+            )
 
         if next_page:
             yield Request(next_page, callback=self.parse_page)
+
+    def parce_price(self, response, **kwargs):
+        all_prices = json.loads(response.text)
+        pass
