@@ -48,5 +48,7 @@ class SaveCoinsSpider(Spider):
 
     def parce_price(self, response, **kwargs):
         all_prices = json.loads(response.text)
-        game = {**kwargs}
-        game['price'] = all_prices['digital']
+        item = {**kwargs}
+        item['price'] = all_prices['digital']
+
+        return item

@@ -36,7 +36,7 @@ style-check:  ## Check isort and black code style
 	@black -S -t py37 -l 79 --check . --exclude '/(\.git|\.venv|env|venv)/'
 
 crawl: clean  ## Crawl save coins website and populate the database
-	@scrapy runspider scrapy/savecoins_spider.py
+	@scrapy runspider bmo/savecoins_spider.py
 
 up:
 	docker-compose up -d
