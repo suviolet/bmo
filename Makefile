@@ -37,3 +37,6 @@ style-check:  ## Check isort and black code style
 
 crawl: clean  ## Crawl save coins website and populate the database
 	@scrapy runspider scrapy/savecoins_spider.py
+
+up:
+	docker-compose up -d
